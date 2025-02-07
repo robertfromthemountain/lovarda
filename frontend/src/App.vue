@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navigation />
+    <navigation />
     
     <v-main>
       <router-view />
@@ -9,5 +9,5 @@
 </template>
 
 <script setup>
-  import Navigation from './components/Navigation.vue';
+  import navigation from './components/navigation.vue';
 </script>

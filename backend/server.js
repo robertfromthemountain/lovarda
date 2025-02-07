@@ -2,11 +2,20 @@
 
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');  // CORS importálása
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Környezeti változók betöltése
 dotenv.config();
+
+// CORS middleware beállítása
+app.use(cors({
+    origin: 'http://localhost:5173',  // Csak a frontend origin-t engedélyezzük
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],  // Engedélyezett HTTP metódusok
+    credentials: true  // Engedélyezi a sütik és hitelesítési információk küldését (ha szükséges)
+  }));
 
 // Middleware a JSON adatok feldolgozásához
 app.use(express.json());
@@ -14,6 +23,9 @@ app.use(express.json());
 // API router importálása
 const apiRouter = require('./routes/api');
 app.use('/api', apiRouter);
+
+// Statikus fájlok (képek) kiszolgálása
+app.use('/images', express.static('public/images'));
 
 // Alap végpont teszteléshez
 app.get('/', (req, res) => {

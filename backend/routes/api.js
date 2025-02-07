@@ -1,13 +1,26 @@
-// backend/routes/api.js
 const express = require('express');
-const router = express.Router();
-
-// Controller importálása
+const multer = require('multer');
+const path = require('path');
 const horseController = require('../controllers/horseController');
 
-// API végpontok
-router.get('/horses', horseController.getAllHorses);
-router.post('/horses', horseController.addHorse);
-router.delete('/horses/:id', horseController.deleteHorse);
+const router = express.Router();
+
+// Multer konfigurálása
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images');  // Képek mentése ebbe a mappába
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + path.extname(file.originalname);
+    cb(null, uniqueSuffix);  // Egyedi fájlnév
+  }
+});
+
+const upload = multer({ storage });
+
+// API végpontok frissítése a frontendhez igazodva
+router.get('/horses', horseController.getAllHorses);  // Lovak lekérése
+router.post('/horses', upload.single('image'), horseController.addHorse);  // Ló hozzáadása képfeltöltéssel
+router.delete('/horses/:id', horseController.deleteHorse);  // Ló törlése ID alapján
 
 module.exports = router;
