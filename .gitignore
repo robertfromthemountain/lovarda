@@ -1,0 +1,39 @@
+# Node.js modulok
+node_modules/
+
+# Vite build output
+dist/
+
+# Log fájlok
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Környezeti változók (érzékeny adatok, pl. API kulcsok)
+.env
+.env.* 
+
+# IDE és szerkesztő fájlok
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS specifikus fájlok
+.DS_Store
+Thumbs.db
+
+# Cache és ideiglenes fájlok
+.cache/
+.temp/
+
+# Képek kizárása
+/public/images/
+src/assets/images/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
