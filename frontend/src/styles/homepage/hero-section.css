@@ -1,0 +1,25 @@
+  /* Overlay sötétítése */
+  .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Hero szöveg */
+  .hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .hero-subtitle {
+    font-size: 20px;
+    color: white;
+    margin-top: 10px;
+  }
+  
+  .hero-btn {
+    margin-top: 20px;
+  }

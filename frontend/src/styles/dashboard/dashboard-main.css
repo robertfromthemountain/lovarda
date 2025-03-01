@@ -1,0 +1,15 @@
+.sidebar-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    padding: 16px;
+}
+
+.dashboard-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.breadcrumbs {
+    margin-bottom: 16px;
+  }

@@ -1,5 +1,6 @@
 // backend/controllers/horseController.js
 const db = require('../models/db');
+const fs = require('fs');
 const path = require('path');
 
 // Lovak lekérése
@@ -50,14 +51,45 @@ const addHorse = (req, res) => {
 
 // Ló törlése ID alapján
 const deleteHorse = (req, res) => {
-  const { id } = req.params;
-  const query = 'DELETE FROM horses WHERE id = ?';
-  db.query(query, [id], (err, result) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json({ message: 'Ló törölve!' });
-  });
-};
+    const { id } = req.params;
+  
+    // Először lekérjük a ló adatait, hogy megtaláljuk a kép elérési útját
+    const selectQuery = 'SELECT image_path FROM horses WHERE id = ?';
+    db.query(selectQuery, [id], (err, results) => {
+      if (err) {
+        console.error('Adatbázis hiba a kép lekérdezésénél:', err.message);
+        return res.status(500).json({ error: 'Adatbázis hiba', details: err.message });
+      }
+  
+      if (results.length === 0) {
+        return res.status(404).json({ message: 'Ló nem található!' });
+      }
+  
+      const imagePath = results[0].image_path;
+      if (imagePath) {
+        const fullImagePath = path.join(__dirname, '../public', imagePath);
+  
+        // Fájl törlése a fájlrendszerből
+        fs.unlink(fullImagePath, (err) => {
+          if (err) {
+            console.error('Hiba a kép törlésekor:', err.message);
+            // Nem állítjuk le itt, mert a kép hiánya nem akadályozza meg az adatbázisból való törlést
+          }
+        });
+      }
+  
+      // Ló törlése az adatbázisból
+      const deleteQuery = 'DELETE FROM horses WHERE id = ?';
+      db.query(deleteQuery, [id], (err, result) => {
+        if (err) {
+          console.error('Adatbázis hiba a törlés során:', err.message);
+          return res.status(500).json({ error: 'Adatbázis hiba', details: err.message });
+        }
+  
+        res.json({ message: 'Ló és a hozzátartozó kép törölve!' });
+      });
+    });
+  };
+  
 
 module.exports = { getAllHorses, addHorse, deleteHorse };

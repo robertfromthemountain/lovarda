@@ -1,0 +1,79 @@
+/* A kártyák stílusozása */
+.horse-card {
+    display: flex;
+    overflow: hidden;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    /* background-color: rgb(255, 255, 255) !important; */
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* A ló képe fix méretben, hover effektussal */
+.horse-image {
+    height: 550px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover esetén nagyítás */
+.image-container:hover .horse-image {
+    transform: scale(1.1);
+}
+
+
+/* Nagyító ikon hover esetén */
+.zoom-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.image-container:hover .zoom-icon {
+    opacity: 1;
+}
+
+/* Lightbox (teljes képernyős képnézet) */
+.lightbox-card {
+    position: relative;
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.full-image {
+    width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+}
+
+/* Bezárás gomb */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 1000;
+}
+
+.close-button:hover {
+    cursor: pointer;
+}
+
+/* A kártya szövege */
+.v-card-text p {
+    margin: 5px 0;
+    font-size: 17px;
+}

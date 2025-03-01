@@ -35,11 +35,7 @@
               <v-btn color="error" @click="deleteHorse(horse.id)">Törlés</v-btn>
             </v-list-item>
           </v-list>
-  
-          <!-- Üzenet, ha nincs ló az adatbázisban -->
-          <v-alert v-if="filteredHorses.length === 0" type="info" class="mt-4">
-            Nincs elérhető ló az adatbázisban.
-          </v-alert>
+
         </v-container>
       </v-main>
     </v-app>
